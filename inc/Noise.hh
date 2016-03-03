@@ -20,6 +20,13 @@ public:
             float lacunarity = 1, float gain = 0.5);
   float fbm(float x, float y, float z, int octaves = 2, float scale = 1,
             float lacunarity = 1, float gain = 0.5);
+  float ridgedMf(float x, float y, int octaves = 2, float scale = 1,
+                 float lacunarity = 1, float gain = 0.5, float offset = 1);
+  float ridgedMf(float x, float y, float z, int octaves = 2, float scale = 1,
+                 float lacunarity = 1, float gain = 0.5, float offset = 1);
+
+private:
+  float ridge(float h, float offset);
 
 private:
   static constexpr float F2 = 0.366025403f;  // F2 = 0.5*(sqrt(3.0)-1.0)

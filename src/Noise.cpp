@@ -22,6 +22,25 @@ static inline float dot3(const int *g, float x, float y, float z) {
   return g[0] * x + g[1] * y + g[2] * z;
 }
 
+float Noise::ridge(float h, float offset) {
+  if (h < 0)
+    h = -h;
+  h = offset - h;
+  return h * h;
+}
+
+float Noise::ridgedMf(float x, float y, int octaves, float scale,
+                      float lacunarity, float gain, float offset) {
+  return ridge(0.3f + 0.5f * fbm(x, y, octaves, scale, lacunarity, gain),
+               offset);
+}
+
+float Noise::ridgedMf(float x, float y, float z, int octaves, float scale,
+                      float lacunarity, float gain, float offset) {
+  return ridge(0.3f + 0.5f * fbm(x, y, octaves, scale, lacunarity, gain),
+               offset);
+}
+
 float Noise::fbm(float x, float y, int octaves, float scale, float lacunarity,
                  float gain) {
   float total = 0.f;
