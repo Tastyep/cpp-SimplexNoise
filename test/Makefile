@@ -17,13 +17,14 @@ LIBDIR 	= ../build/
 LIBNAME = SimplexNoise.a
 
 SRCS	= main.cpp \
-	  Render.cpp
+	  Render.cpp \
+			NoiseCaller.cpp
 
 OBJS	= $(addprefix $(OBJDIR), $(SRCS:.cpp=.o))
 
 INCCOMP	= -I $(INCDIR) -I $(LIBINC)
 
-CXXFLAGS	= -O2 -march=native -std=c++11
+CXXFLAGS	= -O2 -march=native -std=c++14
 
 LIB	= -L$(LIBDIR) -lSimplexNoise
 

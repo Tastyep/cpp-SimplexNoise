@@ -1,7 +1,7 @@
 #ifndef _RENDER_H_
 #define _RENDER_H_
 
-#include "Noise.hh"
+#include "NoiseCaller.hh"
 
 #include <SFML/Graphics.hpp>
 
@@ -14,13 +14,12 @@ public:
 
 private:
   void loadNoise(sf::Image &image);
-  float scaleNumber(float nb, float flb, float fhb, float lb, float hb) const {
-    return (((hb - lb) * (nb - flb)) / (fhb - flb) + lb);
-  }
+  void handlePressedKey(unsigned int keyCode);
 
 private:
   sf::RenderWindow _window;
-  Noise noise;
+  NoiseCaller noise;
+  bool refresh;
 };
 
 #endif /* _RENDER_H_ */

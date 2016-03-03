@@ -3,7 +3,7 @@
 #include <iostream>
 
 Render::Render(unsigned int width, unsigned int height)
-    : _window(sf::VideoMode(width, height), "Noise Renderer") {}
+    : _window(sf::VideoMode(width, height), "Noise Renderer"), refresh(true) {}
 
 Render::~Render() {}
 
@@ -14,11 +14,24 @@ void Render::loadNoise(sf::Image &image) {
 
   for (unsigned int y = 0; y < size.y; ++y) {
     for (unsigned int x = 0; x < size.x; ++x) {
-      value = noise.fbm(x, y, 2, 0.01);
+      value = noise.call(x, y, 2, 0.01);
       color =
           sf::Color(127 + 127 * value, 127 + 127 * value, 127 + 127 * value);
       image.setPixel(x, y, color);
     }
+  }
+}
+
+void Render::handlePressedKey(unsigned int keyCode) {
+  switch (keyCode) {
+  case sf::Keyboard::Up:
+    this->noise.setIdx(this->noise.getIdx() - 1);
+    this->refresh = true;
+    break;
+  case sf::Keyboard::Down:
+    this->noise.setIdx(this->noise.getIdx() + 1);
+    this->refresh = true;
+    break;
   }
 }
 
@@ -32,17 +45,23 @@ void Render::run() {
   image.create(size.x, size.y, sf::Color::Black);
   texture.create(size.x, size.y);
 
-  _window.setFramerateLimit(1);
+  _window.setFramerateLimit(25);
 
   while (_window.isOpen()) {
     _window.clear();
     while (_window.pollEvent(event)) {
       if (event.type == sf::Event::Closed)
         _window.close();
+      else if (event.type == sf::Event::KeyPressed) {
+        this->handlePressedKey(event.key.code);
+      }
     }
-    loadNoise(image);
-    texture.update(image);
-    sprite.setTexture(texture);
+    if (this->refresh) {
+      loadNoise(image);
+      texture.update(image);
+      sprite.setTexture(texture);
+      this->refresh = false;
+    }
     _window.draw(sprite);
     _window.display();
   }
