@@ -22,6 +22,41 @@ static inline float dot3(const int *g, float x, float y, float z) {
   return g[0] * x + g[1] * y + g[2] * z;
 }
 
+float Noise::fbm(float x, float y, int octaves, float lacunarity, float gain,
+                 float scale) {
+  float total = 0.f;
+  float amplitude = 1.f;
+  float max = 0.f;
+
+  x *= scale;
+  y *= scale;
+  for (int i = 0; i < octaves; ++i) {
+    max += amplitude;
+    total += raw(x, y) * amplitude;
+    scale *= lacunarity;
+    amplitude *= gain;
+  }
+  return total / max;
+}
+
+float Noise::fbm(float x, float y, float z, int octaves, float lacunarity,
+                 float gain, float scale) {
+  float total = 0.f;
+  float amplitude = 1.f;
+  float max = 0.f;
+
+  x *= scale;
+  y *= scale;
+  z *= scale;
+  for (int i = 0; i < octaves; ++i) {
+    max += amplitude;
+    total += raw(x, y, z) * amplitude;
+    scale *= lacunarity;
+    amplitude *= gain;
+  }
+  return total / max;
+}
+
 float Noise::raw(float x, float y) {
   float n0, n1, n2;
   float s = (x + y) * F2;
