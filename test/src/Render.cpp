@@ -14,7 +14,9 @@ void Render::loadNoise(sf::Image &image) {
 
   for (unsigned int y = 0; y < size.y; ++y) {
     for (unsigned int x = 0; x < size.x; ++x) {
-      value = noise.call(x, y, 2, 0.01);
+      // float x, float y, int octaves = 2, float scale = 1,
+      // float lacunarity = 1, float gain = 0.5
+      value = noise.call(x, y, 8, 0.008, 2.5, 0.3);
       color =
           sf::Color(127 + 127 * value, 127 + 127 * value, 127 + 127 * value);
       image.setPixel(x, y, color);

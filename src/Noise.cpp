@@ -47,13 +47,9 @@ float Noise::fbm(float x, float y, int octaves, float scale, float lacunarity,
   float amplitude = 1.f;
   float max = 0.f;
 
-  if (scale != 1) {
-    x *= scale;
-    y *= scale;
-  }
   for (int i = 0; i < octaves; ++i) {
     max += amplitude;
-    total += raw(x, y) * amplitude;
+    total += raw(x * scale, y * scale) * amplitude;
     scale *= lacunarity;
     amplitude *= gain;
   }
@@ -66,14 +62,9 @@ float Noise::fbm(float x, float y, float z, int octaves, float scale,
   float amplitude = 1.f;
   float max = 0.f;
 
-  if (scale != 1) {
-    x *= scale;
-    y *= scale;
-    z *= scale;
-  }
   for (int i = 0; i < octaves; ++i) {
     max += amplitude;
-    total += raw(x, y, z) * amplitude;
+    total += raw(x * scale, y * scale, z * scale) * amplitude;
     scale *= lacunarity;
     amplitude *= gain;
   }
