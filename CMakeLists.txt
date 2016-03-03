@@ -7,4 +7,4 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/inc)
 file(GLOB SOURCES "src/*.cpp")
 
-add_library(SimplexNoise SHARED ${SOURCES})
+add_library(SimplexNoise STATIC ${SOURCES})

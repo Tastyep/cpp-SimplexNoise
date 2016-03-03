@@ -16,10 +16,10 @@ public:
 
   float raw(float x, float y);
   float raw(float x, float y, float z);
-  float fbm(float x, float y, int octaves = 2, float lacunarity = 1,
-            float gain = 0.5, float scale = 1);
-  float fbm(float x, float y, float z, int octaves = 2, float lacunarity = 1,
-            float gain = 0.5, float scale = 1);
+  float fbm(float x, float y, int octaves = 2, float scale = 1,
+            float lacunarity = 1, float gain = 0.5);
+  float fbm(float x, float y, float z, int octaves = 2, float scale = 1,
+            float lacunarity = 1, float gain = 0.5);
 
 private:
   static constexpr float F2 = 0.366025403f;  // F2 = 0.5*(sqrt(3.0)-1.0)
